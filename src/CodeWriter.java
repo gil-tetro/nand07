@@ -85,19 +85,18 @@ public class CodeWriter {
     }
 
     public void writePushPop(String command, String segment, String index) throws IOException {
-        int val = Integer.parseInt(index);
         if (command.equals("C_PUSH")) {
             if (segment.equals("pointer")) {
-                if (val == 0) {
+                if (index == "0") {
                     write2output("@THIS");
-                } else if (val == 1) {
+                } else if (index == "1") {
                     write2output("@THAT");
                 }
                 write2output("D=M");
             } else if (segment.equals("static")) {
-                write2output("@" + val);
+                write2output("@" + index);
                 write2output("D=A");
-                write2output("@" + this.name + val);
+                write2output("@" + this.name + "." + index);
                 write2output("M=D");
                 write2output("@SP");
                 write2output("A=M");
@@ -105,9 +104,9 @@ public class CodeWriter {
                 write2output("@SP");
                 write2output("M=M+1");
             } else if (segment.equals("temp")) {
-                write2output("@" + val);
+                write2output("@" + index);
                 write2output("D=A");
-                write2output("@" + (tempVar + val));
+                write2output("@" + (tempVar + Integer.parseInt(index)));
                 write2output("M=D");
                 write2output("@SP");
                 write2output("A=M");
@@ -115,7 +114,7 @@ public class CodeWriter {
                 write2output("@SP");
                 write2output("M=M+1");
             } else if (segment.equals("constant")) {
-                write2output("@" + val);
+                write2output("@" + index);
                 write2output("D=A");
                 write2output("@SP");
                 write2output("A=M");
@@ -123,7 +122,7 @@ public class CodeWriter {
                 write2output("@SP");
                 write2output("M=M+1");
             } else if (segment.equals("local")) {
-                write2output("@" + val);
+                write2output("@" + index);
                 write2output("D=A");
                 write2output("@LCL");
                 write2output("D=D+M");
