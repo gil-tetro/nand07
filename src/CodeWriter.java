@@ -99,41 +99,26 @@ public class CodeWriter {
                 write2output("D=A");
                 write2output("@" + this.name + val);
                 write2output("M=D");
-                write2output("@SP");
-                write2output("A=M");
-                write2output("M=D");
-                write2output("@SP");
-                write2output("M=M+1");
             } else if (segment.equals("temp")) {
                 write2output("@" + val);
                 write2output("D=A");
                 write2output("@" + (tempVar + val));
                 write2output("M=D");
-                write2output("@SP");
-                write2output("A=M");
-                write2output("M=D");
-                write2output("@SP");
-                write2output("M=M+1");
             } else if (segment.equals("constant")) {
                 write2output("@" + val);
                 write2output("D=A");
-                write2output("@SP");
-                write2output("A=M");
-                write2output("M=D");
-                write2output("@SP");
-                write2output("M=M+1");
             } else if (segment.equals("local")) {
-                write2output("@" + val);
-                write2output("D=A");
-                write2output("@LCL");
-                write2output("D=D+M");
-                //problem
-                write2output("@SP");
-                write2output("A=M");
-                write2output("M=D");
-                write2output("@SP");
-                write2output("M=M+A");
+                write2output("@" + "LCL");
+                write2output("D=M");
+                write2output("@" + index);
+                write2output("A=D+A");
+                write2output("D=M");
             }
+            write2output("@SP");
+            write2output("A=M");
+            write2output("M=D");
+            write2output("@SP");
+            write2output("M=M+1");
         }
 
     }
