@@ -13,15 +13,13 @@ public class CodeWriter {
 
     private int lines;
 
-    private String fileName;
+    private String name;
 
 
-
-    public CodeWriter(String arg) throws IOException {
-        String fileName = arg.substring(0, arg.indexOf('.')); //saves the path of the give file
-        String outputName = fileName + ".asm";
-        this.output = new FileWriter(outputName);   //create and ouput file to write into using the path we received
-        this.fileName = ;
+    public CodeWriter(File input) throws IOException {
+        String fileName = input.getName(); //saves the path of the give file
+        this.output = new FileWriter(fileName.replace(".vm", ".asm"));   //create and ouput file to write into using the path we received
+        this.name = fileName.replace(".vm", "");
 
         write2output("// init"); //initialize the ram structure
         write2output("@256");
@@ -88,8 +86,8 @@ public class CodeWriter {
 
     public void writePushPop(String command, String segment, String index) throws IOException {
         int val = Integer.parseInt(index);
-        if(command.equals("C_PUSH")){
-            if(segment.equals("pointer")) {
+        if (command.equals("C_PUSH")) {
+            if (segment.equals("pointer")) {
                 if (val == 0) {
                     write2output("@THIS");
                 } else if (val == 1) {
@@ -99,7 +97,7 @@ public class CodeWriter {
             } else if (segment.equals("static")) {
                 write2output("@" + val);
                 write2output("D=A");
-                write2output("@" + (staticVar+val));
+                write2output("@" + this.name + val);
                 write2output("M=D");
                 write2output("@SP");
                 write2output("A=M");
@@ -109,7 +107,7 @@ public class CodeWriter {
             } else if (segment.equals("temp")) {
                 write2output("@" + val);
                 write2output("D=A");
-                write2output("@" + (tempVar+val));
+                write2output("@" + (tempVar + val));
                 write2output("M=D");
                 write2output("@SP");
                 write2output("A=M");

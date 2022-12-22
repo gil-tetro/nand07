@@ -27,17 +27,7 @@ public class CommandTable {
         comtab.put("return", "C_RETURN");
 
     }
-
-    //addds entry to the table
-//    //public void addEntry(String symbol, String address) {
-//        if (!this.contains(symbol)) {
-//            System.out.println("addEntry recieves the symbol:" +symbol);
-//            System.out.println("And adds it to the table with address:" +address );
-//            comtab.put(symbol, address);
-//        }
-//    }
-
-    //checks if symbol exsits and returns true. False if it does not exsis.
+    //checks if the key is already in the command table
     public boolean contains(String symbol) {
         return comtab.containsKey(symbol);
     }
