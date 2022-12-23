@@ -119,13 +119,23 @@ public class CodeWriter {
             write2output("M=D");
             write2output("@SP");
             write2output("M=M+1");
-        }
+        } else if (command.equals("C_POP")) {
+            if (segment.equals("pointer")) {
+                if (val == 0) {
+                    write2output("@THIS");
+                } else if (val == 1) {
+                    write2output("@THAT");
+                }
+                write2output("D=M"); 
+            } else if(segment.equals("static")){
+                
+            } else if(segment.equals("temp")){
 
-    }
+            }
+        }
 
     private void write2output(String str) throws IOException {
         output.write(str + "\n");
-        lines++;
     }
 
     public void close() throws IOException {
